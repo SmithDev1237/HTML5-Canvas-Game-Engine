@@ -1,3 +1,122 @@
+function win(){
+	
+	if(memMan.inventory["coin"] == 4){
+		
+		lockKeys = true;
+		ctx.font = "20pt Calibri";
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		ctx.fillStyle = "red";
+		ctx.fillText("Level Complete, Well done!", 320, 300);
+		
+		playerImmune = true;
+		memMan.player[0].lives = 0;
+		left = false;
+		jump = false;
+		right = false;
+		
+		
+		setTimeout("revivePlayer(); lockKeys = false;", 6000);
+	}
+	else{
+		
+		ctx.font = "20pt Calibri";
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		ctx.fillStyle = "red";
+		ctx.fillText("Find all the coins to exit!!", 320, 300);
+	}
+	
+}
+
+// todo convert into json.
+memMan.levelName = "The Pingle";
+memMan.addSprite("grass", "images/soil.bmp", 16, 16, 16, 0,1,0);
+memMan.addSprite("grassTopLeft", "images/soil.bmp", 16, 16, 32, 0,1,0);
+memMan.addSprite("grassTopRight", "images/soil.bmp", 16, 16, 48, 0,1,0);
+memMan.addSprite("soil", "images/soil.bmp", 16, 16, 0, 0,1,0);
+memMan.addSprite("soilLeft", "images/soil.bmp", 16, 16, 80, 0,1,0);
+memMan.addSprite("soilRight", "images/soil.bmp", 16, 16, 96, 0,1,0);
+//memMan.addSprite("grass", "images/sprites.png", 32, 32, 96, 0,1,0);
+memMan.addSprite("edge", "images/sprites.png", 32, 32, 0, 384,1,0);
+memMan.addSprite("water", "images/sprites.png", 16, 16, 0, 32,4,1000);
+//memMan.addSprite("bricks", "images/sprites.png", 32, 32, 0, 96,1,0);
+memMan.addSprite("bricks", "images/bricks.bmp", 16, 16, 0, 0,1,0);
+memMan.addSprite("bricksTop", "images/bricks.bmp", 16, 16, 32, 0,1,0);
+memMan.addSprite("bricksRight", "images/bricks.bmp", 16, 16, 112, 0,1,0);
+memMan.addSprite("bricksLeft", "images/bricks.bmp", 16, 16, 96, 0,1,0);
+memMan.addSprite("bricksTopLeft", "images/bricks.bmp", 16, 16, 48, 0,1,0);
+memMan.addSprite("bricksTopRight", "images/bricks.bmp", 16, 16, 64, 0,1,0);
+memMan.addSprite("lava", "images/sprites.png", 16, 16, 0, 16,4,5000);
+memMan.addSprite("waterfall", "images/sprites.png", 16, 16, 0, 144,4,100);
+memMan.addSprite("lavafall", "images/sprites.png", 16, 16, 0, 256,4,100);
+memMan.addSprite("spikes", "images/sprites.png", 32, 32, 32, 352,1,0);
+memMan.addSprite("dizzy1", "images/dizzystanding.png", 32, 32, 0, 0,2,1000);
+memMan.addSprite("dizzy2", "images/dizzywalking.png", 32, 32, 0, 0,8,100);
+memMan.addSprite("dizzy3", "images/dizzyjumping.png", 32, 32, 0, 0,7,100);
+memMan.addSprite("dizzy4", "images/dizzyswimming.png", 32, 32, 0, 0,2,200);
+memMan.addSprite("dizzy5", "images/dizzyko.png", 32, 32, 0, 0,2,200);
+memMan.addSprite("ramp1", "images/ramp.png", 32, 32, 0, 0,1,0);
+memMan.addSprite("ramp2", "images/ramp.png", 32, 32, 32, 0,1,0);
+memMan.addSprite("ramp3", "images/ramp.png", 32, 32, 64, 0,1,0);
+memMan.addSprite("ramp3a", "images/rampreverse.png", 32, 32, 0, 0,1,0);
+memMan.addSprite("ramp2a", "images/rampreverse.png", 32, 32, 32, 0,1,0);
+memMan.addSprite("ramp1a", "images/rampreverse.png", 32, 32, 64, 0,1,0);
+memMan.addSprite("enemy1", "images/enemywalking.png", 32, 32, 0, 0,6,100);
+memMan.addSprite("ground", "images/sprites.png", 32, 32, 0, 0,1,0);
+memMan.addSprite("exit", "images/exit.png", 32, 32, 0, 0,3,200);
+memMan.addSprite("coin", "images/coin.png", 32, 32, 0, 0,16,50);
+memMan.addSprite("conv", "images/conv.png", 16, 16, 0, 0,2,1000);
+
+
+
+
+memMan.addTerrain("ground", "ground", "top", 1, 0, null,0);
+memMan.addTerrain("grass", "grass", "top", 1, 0, null,0);
+memMan.addTerrain("grassTopLeft", "grassTopLeft", "top", 1, 0, null,0);
+memMan.addTerrain("grassTopRight", "grassTopRight", "top", 1, 0, null,0);
+memMan.addTerrain("soil", "soil", "top", 1, 0, null,0);
+memMan.addTerrain("soilLeft", "soilLeft", "top", 1, 0, null,0);
+memMan.addTerrain("soilRight", "soilRight", "top", 1, 0, null,0);
+memMan.addTerrain("edge", "edge", "all", 1, 0, null,0);
+memMan.addTerrain("water", "water", "swim", 1, 0, null,0);
+memMan.addTerrain("waterfall", "waterfall", "none", 1, 0, null,0);
+memMan.addTerrain("bricks", "bricks", "all", 0, 0, null,0);
+memMan.addTerrain("bricksTop", "bricksTop", "all", 0, 0, null,0);
+memMan.addTerrain("bricksRight", "bricksRight", "all", 0, 0, null,0);
+memMan.addTerrain("bricksLeft", "bricksLeft", "all", 0, 0, null,0);
+memMan.addTerrain("bricksTopLeft", "bricksTopLeft", "all", 0, 0, null,0);
+memMan.addTerrain("bricksTopRight", "bricksTopRight", "all", 0, 0, null,0);
+memMan.addTerrain("lava", "lava", "none", 0, 0, null,0);
+memMan.addTerrain("lavafall", "lavafall", "none", 0, 0, null,0);
+memMan.addTerrain("spikes", "spikes", "none", 0, 0, null,0);
+memMan.addTerrain("ramp1", "ramp1", "slope", 1, 0, null,0);
+memMan.addTerrain("ramp2", "ramp2", "slope", 1, 0, null,0);
+memMan.addTerrain("ramp3", "ramp3", "slope", 1, 0, null,0);
+memMan.addTerrain("ramp1a", "ramp1a", "slope", 1, 0, null,0);
+memMan.addTerrain("ramp2a", "ramp2a", "slope", 1, 0, null,0);
+memMan.addTerrain("ramp3a", "ramp3a", "slope", 1, 0, null,0);
+memMan.addTerrain("exit", "exit", "none", 1, 0, null,0);
+memMan.addTerrain("conv", "conv", "all", 0, 0, null,0);
+
+memMan.addPlayer("dizzy1", "dizzy2", "dizzy3", "dizzy4", "dizzy5", 32, 32);
+
+memMan.addEnemy("enemy1", 320, 144);
+memMan.addEnemy("enemy1", 448, 384);
+memMan.addEnemy("enemy1", 800, 128);
+memMan.addEnemy("enemy1", 800, 544);
+memMan.addEnemy("enemy1", 1378, 64);
+
+memMan.inventory["coin"] = 0;
+
+memMan.addItem("coin", 78, 34);
+memMan.addItem("coin", 98, 35);
+memMan.addItem("coin", 50, 8);
+memMan.addItem("coin", 22, 34);
+
+memMan.addTrigger(384, 482, 128, 32, "conveyor();");
+memMan.addTrigger(1630, 64, 2, 32, "win();");
+
 var map1 = new Array(Array(null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	"bricksTopLeft",	"bricksTopRight",	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null),
 Array(null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	"bricksLeft",	"bricksRight",	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null),
 Array(null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	"bricksLeft",	"bricksRight",	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null,	null),
